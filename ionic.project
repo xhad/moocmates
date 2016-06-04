@@ -1,0 +1,13 @@
+{
+  "name": "moocmates",
+  "app_id": "13427637",
+  "gulpStartupTasks": [
+    "sass",
+    "watch",
+    "api"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

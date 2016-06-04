@@ -1,0 +1,20 @@
+{
+  "name": "moocmates-api",
+  "version": "0.0.1",
+  "description": "MoocMates Api - Collaborative Education",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xhad",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^7.0.0",
+    "mongoose": "^4.4.19",
+    "morgan": "^1.7.0",
+    "password-hash": "^1.2.2"
+  }
+}
