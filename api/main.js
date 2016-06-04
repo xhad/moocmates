@@ -50,7 +50,9 @@ app.get('/setup', function(req, res) {
 var api = express.Router();
 
 api.get('/', function(req, res) {
-  res.json({ message: 'This is an API'});
+  res.json({
+    message: 'Bankchat is a SunkWorks API for MoocMates',
+  });
 });
 
 api.post('/auth', function(req, res) {
