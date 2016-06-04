@@ -3,7 +3,7 @@ angular.module('moocmates.services', [])
 // store global app configurations
 .factory('Config', function() {
   var all = {
-    api: 'https://bankchat.info:8101/api',
+y
     server: 'https://bankchat.info'
   }
   return all;
