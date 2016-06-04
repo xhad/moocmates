@@ -10,16 +10,15 @@ angular.module('moocmates.controllers', [])
   $scope.isAuth = function () {
     $http.get(Config.api + '/check' + '?token=' + sessionStorage.getItem('mmToken'))
     .then(function(result) {
-      console.log(result.data);
-      if (result.data.success === true ) {
+      console.log(result.data.success);
+      if (result.data.success === 'true' ) {
         $scope.auth = true;
       } else {
         $scope.auth = false;
+        $scope.name = 'Mate';
       }
     })
   }
-
-  $scope.isAuth();
 
   $scope.mmToken = sessionStorage.getItem('mmToken');
   //console.log($scope.mmToken);
@@ -55,7 +54,9 @@ angular.module('moocmates.controllers', [])
       password: $scope.loginData.password
     }).then(function(result) {
       $window.sessionStorage.setItem('mmToken', result.data.token);
-      $scope.auth = true;
+      // $scope.auth = true;
+      $scope.isAuth();
+
       $scope.name = $scope.loginData.username;
     });
 
@@ -63,6 +64,7 @@ angular.module('moocmates.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
 })
 
 

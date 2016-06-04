@@ -51,7 +51,7 @@ var api = express.Router();
 
 api.get('/', function(req, res) {
   res.json({
-    message: 'Bankchat is a SunkWorks API for MoocMates',
+    message: 'Bankchat is a SkunkWorks API for MoocMates',
   });
 });
 
