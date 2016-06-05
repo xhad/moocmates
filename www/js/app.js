@@ -102,7 +102,7 @@ angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.servic
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/landing');
+  $urlRouterProvider.otherwise('/app/chat/dash');
 
 })
 

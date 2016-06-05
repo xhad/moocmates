@@ -15,7 +15,6 @@ angular.module('moocmates.controllers', [])
   $scope.logout = function() {
     AuthService.logout();
     $timeout(function() {
-      $scope.auth = AuthService.auth();
       $window.location.reload();
     }, 50);
   };

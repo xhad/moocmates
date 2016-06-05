@@ -32,10 +32,10 @@ angular.module('moocmates.services', [])
       name: username,
       password: password
     }).then(function(result) {
-      $location.path('/app/chat/dash');
-
       localStorage.setItem('AUTH_TOKEN', result.data.token);
       localStorage.setItem('username', username);
+      $location.path('/app/chat/dash');
+
     });
   };
 
