@@ -1,11 +1,5 @@
 angular.module('moocmates.controllers', [])
 
-// run on start to check authentication
-.run(function($rootScope, AuthService) {
-  AuthService.auth().then(function(result) {
-    $rootScope.auth = result;
-  });
-})
 
 .controller('AppCtrl', function($window, $scope, $http, AuthService, Config, $ionicModal, $timeout) {
   $scope.loginData = {};

@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, AuthService, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,10 @@ angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.servic
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+  });
+  // run auth check
+  AuthService.auth().then(function(result) {
+    $rootScope.auth = result;
   });
 })
 
@@ -38,6 +42,14 @@ angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.servic
       abstract: true,
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
+    })
+    .state('app.landing', {
+      url: '/landing',
+      views: {
+        'landingContent': {
+          templateUrl: 'templates/landing/landing.html'
+        }
+      }
     })
     .state('app.chat', {
       url: '/chat',
@@ -90,13 +102,13 @@ angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.servic
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/chat/dash');
+  $urlRouterProvider.otherwise('/app/landing');
 
 })
 
 // put the nav tabs on the bottom for all platforms
 .config(['$ionicConfigProvider', function($ionicConfigProvider) {
 
-    $ionicConfigProvider.tabs.position('bottom'); // other values: top
+  $ionicConfigProvider.tabs.position('bottom'); // other values: top
 
 }]);

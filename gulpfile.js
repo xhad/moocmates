@@ -13,7 +13,7 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['api', 'ionic']);
+gulp.task('default', ['sass', 'api', 'ionic']);
 
 gulp.task('api', function() {
   nodemon({

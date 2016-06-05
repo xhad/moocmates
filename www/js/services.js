@@ -9,7 +9,7 @@ angular.module('moocmates.services', [])
   return all;
 })
 
-.service('AuthService', function($http, $timeout, $window, Config) {
+.service('AuthService', function($http, $timeout, $location, $window, Config) {
   var auth;
   var loginData = {};
   var name = '';
@@ -22,6 +22,9 @@ angular.module('moocmates.services', [])
     return $http.get(Config.api + '/check' + '?token=' + token)
       .then(function(result) {
         console.log('authentication is ' + result.data.success);
+        if (result.data.success === false) {
+          $location.path('/app/landing');
+        }
         return auth = result.data.success;
       });
   };
@@ -33,14 +36,18 @@ angular.module('moocmates.services', [])
     }).then(function(result) {
       localStorage.setItem('AUTH_TOKEN', result.data.token);
       localStorage.setItem('username', username);
-      isAuth();
-      console.log(result.data.token);
+      if (isAuth()) {
+        $location.path('/app/chat');
+      } else {
+        $location.path('/app/chat');
+      }
     });
   };
 
   function logout() {
     localStorage.setItem('AUTH_TOKEN', 'no_token');
     console.log(localStorage.getItem('AUTH_TOKEN'));
+    $location.path('/app/landing');
   };
 
   return {

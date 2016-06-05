@@ -1,5 +1,63 @@
+
+@import url(https://fonts.googleapis.com/css?family=Poiret+One);
 .ion-tabs::-webkit-scrollbar { width: 0 !important }
 .ionic-scrool {
   display: none!important;
 }
-.md-scroll-mask { position: initial;}
+.md-scroll-mask { position: initial;
+}
+.center{
+     text-align:center;
+}
+
+.mt50 {
+  margin-top: 50px!important;
+}
+
+.mt200 {
+  margin-top: 200px;
+}
+
+.mb50 {
+  margin-bottom: 50px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.panda {
+  background-image: url('../img/redpanda1.jpg');
+  -webkit-background-size: cover; /* For WebKit*/
+  -moz-background-size: cover;    /* Mozilla*/
+  -o-background-size: cover;      /* Opera*/
+  background-size: cover;         /* Generic*/
+}
+
+.bg-pattern {
+  background-image: url('../img/bgpattern.png');
+  background-repeat: repeat;
+}
+
+ion-content {
+  background-image: url('../img/bgpattern.png');
+  background-repeat: repeat;
+}
+
+h1 {
+  font-family: Poiret One;
+  color: black;
+}
+
+.button {
+  padding: 10px;
+  font-size: 30px;
+}
+
+/* login modal style */
+
+.rounded {
+  border-radius: 10px;
+}
