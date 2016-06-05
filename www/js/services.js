@@ -17,11 +17,8 @@ angular.module('moocmates.services', [])
 
   function isAuth() {
     var token = localStorage.getItem('AUTH_TOKEN');
-
-
     return $http.get(Config.api + '/check' + '?token=' + token)
       .then(function(result) {
-        console.log('authentication is ' + result.data.success);
         if (result.data.success === false) {
           $location.path('/app/landing');
         }
@@ -30,17 +27,14 @@ angular.module('moocmates.services', [])
   };
 
   function doLogin(username, password) {
+    username = username.toLowerCase();
     $http.post(Config.api + '/auth', {
       name: username,
       password: password
     }).then(function(result) {
+      $location.path('/app/chat');
       localStorage.setItem('AUTH_TOKEN', result.data.token);
       localStorage.setItem('username', username);
-      if (isAuth()) {
-        $location.path('/app/chat');
-      } else {
-        $location.path('/app/chat');
-      }
     });
   };
 

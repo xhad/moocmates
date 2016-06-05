@@ -91,12 +91,12 @@ angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.servic
       }
     })
 
-  .state('app.chat.account', {
-    url: '/account',
+  .state('app.chat.pages', {
+    url: '/pages',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/chat/account.html',
-        controller: 'AccountCtrl'
+      'tab-pages': {
+        templateUrl: 'templates/chat/pages.html',
+        controller: 'PagesCtrl'
       }
     }
   });

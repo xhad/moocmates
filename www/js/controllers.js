@@ -59,7 +59,7 @@ angular.module('moocmates.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('PagesCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
