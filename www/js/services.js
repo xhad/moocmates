@@ -3,7 +3,7 @@ angular.module('moocmates.services', [])
 // store global app configurations
 .factory('Config', function() {
   var all = {
-    api: 'http://localhost:8101/api',
+    api: 'https://bankchat.info/api',
     server: 'https://bankchat.info'
   }
   return all;
@@ -19,9 +19,6 @@ angular.module('moocmates.services', [])
     var token = localStorage.getItem('AUTH_TOKEN');
     return $http.get(Config.api + '/check' + '?token=' + token)
       .then(function(result) {
-        if (result.data.success == false) {
-          $location.path('/app/landing');
-        }
         return auth = result.data.success;
       });
   };
@@ -32,10 +29,13 @@ angular.module('moocmates.services', [])
       name: username,
       password: password
     }).then(function(result) {
-      localStorage.setItem('AUTH_TOKEN', result.data.token);
-      localStorage.setItem('username', username);
-      $location.path('/app/chat/dash');
-
+      if (result.data.success == false) {
+        $location.path('/app/landing');
+      } else {
+        localStorage.setItem('AUTH_TOKEN', result.data.token);
+        localStorage.setItem('username', username);
+        $location.path('/app/chat/dash');
+      }
     });
   };
 

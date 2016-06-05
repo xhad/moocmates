@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.services'])
 
-.run(function($ionicPlatform, AuthService, $rootScope) {
+.run(function($ionicPlatform, AuthService, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,7 +23,11 @@ angular.module('moocmates', ['ionic', 'moocmates.controllers', 'moocmates.servic
   });
   // run auth check
   AuthService.auth().then(function(result) {
-    $rootScope.auth = result;
+    if (result == false) {
+      $location.path('/app/landing');
+    } else {
+      $rootScope.auth = result;
+    }
   });
 })
 
