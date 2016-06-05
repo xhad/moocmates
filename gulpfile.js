@@ -13,17 +13,14 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass','ionic']);
+gulp.task('default', ['api', 'ionic']);
 
 gulp.task('api', function() {
   nodemon({
     script: 'api/main.js',
     watch: ['api/main.js'],
     ex: 'js'
-  }).on('restart', () => {
-    gulp.src('api/main.js')
-      .pipe(console.log('restarting the API server'));
-  });
+  })
 });
 
 gulp.task('sass', function(done) {

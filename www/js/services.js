@@ -3,10 +3,55 @@ angular.module('moocmates.services', [])
 // store global app configurations
 .factory('Config', function() {
   var all = {
-    api: 'https://bankchat.info/api',
+    api: 'http://localhost:8101/api',
     server: 'https://bankchat.info'
   }
   return all;
+})
+
+.service('AuthService', function($http, $timeout, $window, Config) {
+  var auth;
+  var loginData = {};
+  var name = '';
+
+
+  function isAuth() {
+    var token = localStorage.getItem('AUTH_TOKEN');
+
+
+    return $http.get(Config.api + '/check' + '?token=' + token)
+      .then(function(result) {
+        console.log('authentication is ' + result.data.success);
+        return auth = result.data.success;
+      });
+  };
+
+  function doLogin(username, password) {
+    $http.post(Config.api + '/auth', {
+      name: username,
+      password: password
+    }).then(function(result) {
+      localStorage.setItem('AUTH_TOKEN', result.data.token);
+      localStorage.setItem('username', username);
+      isAuth();
+      console.log(result.data.token);
+    });
+  };
+
+  function logout() {
+    localStorage.setItem('AUTH_TOKEN', 'no_token');
+    console.log(localStorage.getItem('AUTH_TOKEN'));
+  };
+
+  return {
+    auth: function() {
+      return isAuth()
+    },
+    username: localStorage.getItem('username'),
+    logout: logout,
+    doLogin: doLogin,
+    AUTH_TOKEN: localStorage.getItem('AUTH_TOKEN')
+  }
 })
 
 .factory('Chats', function() {
@@ -58,7 +103,7 @@ angular.module('moocmates.services', [])
   };
 })
 
-.config(['$httpProvider', function ($httpProvider) {
+.config(['$httpProvider', function($httpProvider) {
   // Intercept POST requests, convert to standard form encoding
   // $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 }]);

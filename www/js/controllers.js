@@ -1,73 +1,47 @@
 angular.module('moocmates.controllers', [])
 
-
-.controller('AppCtrl', function($scope, $window, Config, $http, $ionicModal, $timeout) {
-
-    //form data for the login modal
-  $scope.loginData = {};
-
-  // check auth
-  $scope.isAuth = function () {
-    $http.get(Config.api + '/check' + '?token=' + sessionStorage.getItem('mmToken'))
-    .then(function(result) {
-      console.log(result.data.success);
-      if (result.data.success === 'true' ) {
-        $scope.auth = true;
-      } else {
-        $scope.auth = false;
-        $scope.name = 'Mate';
-      }
-    })
-  }
-
-  $scope.mmToken = sessionStorage.getItem('mmToken');
-  //console.log($scope.mmToken);
-  // create the login modal
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
+// run on start to check authentication
+.run(function($rootScope, AuthService) {
+  AuthService.auth().then(function(result) {
+    $rootScope.auth = result;
   });
-
-  // triggered in the login modal to close
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  $scope.logout = function() {
-    console.log($scope.auth);
-    $scope.auth = false;
-    sessionStorage.setItem('mmToken', 'empty');
-  }
-
-  $scope.doLogin = function(username, password) {
-    // call the api for auth
-    console.log($scope.loginData.username);
-
-
-    $http.post(Config.api + '/auth', {
-      name: $scope.loginData.username,
-      password: $scope.loginData.password
-    }).then(function(result) {
-      $window.sessionStorage.setItem('mmToken', result.data.token);
-      // $scope.auth = true;
-      $scope.isAuth();
-
-      $scope.name = $scope.loginData.username;
-    });
-
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-
 })
 
+.controller('AppCtrl', function($window, $scope, $http, AuthService, Config, $ionicModal, $timeout) {
+  $scope.loginData = {};
 
+  $scope.username = AuthService.username;
+  $scope.doLogin = function() {
+    AuthService.doLogin($scope.loginData.username, $scope.loginData.password);
+    $timeout(function() {
+      $scope.closeLogin();
+      $window.location.reload();
+    }, 50);
+  };
+  $scope.logout = function() {
+    AuthService.logout();
+    $timeout(function() {
+      $scope.auth = AuthService.auth();
+      $window.location.reload();
+    }, 50);
+  };
+
+  // // create the login modal
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope
+  }).then((modal) => {
+    $scope.modal = modal;
+  });
+  //
+  // // triggered in the login modal to close
+  $scope.closeLogin = () => {
+    $scope.modal.hide();
+  };
+  // // show the login view
+  $scope.login = () => {
+    $scope.modal.show();
+  };
+})
 
 
 .controller('DashCtrl', function($scope) {})

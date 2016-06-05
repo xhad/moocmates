@@ -1,1 +1,5 @@
-/* Empty. Add your own CSS if you like */
+.ion-tabs::-webkit-scrollbar { width: 0 !important }
+.ionic-scrool {
+  display: none!important;
+}
+.md-scroll-mask { position: initial;}

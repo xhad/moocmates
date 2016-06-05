@@ -28,8 +28,8 @@ app.get('/', function(req, res) {
 app.get('/setup', function(req, res) {
   // create sample User
   var chad = new User({
-    name: 'xhad',
-    password: passwordHash.generate('password'),
+    name: 'chad',
+    password: passwordHash.generate('chad'),
     admin: true
   });
 
@@ -41,7 +41,7 @@ app.get('/setup', function(req, res) {
     if (err) throw err;
 
     console.log('User saved to database');
-    res.json({ sucess: true });
+    res.json({ sucess: true, message: 'Authentication Success'});
   });
 });
 
@@ -69,7 +69,7 @@ api.post('/auth', function(req, res) {
       } else {
         // create a token
         var token = jwt.sign(user, app.get('superSecret'), {
-          expiresIn: 1440000
+          expiresIn: 1440
         });
 
         res.json({
