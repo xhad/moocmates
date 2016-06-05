@@ -19,7 +19,7 @@ angular.module('moocmates.services', [])
     var token = localStorage.getItem('AUTH_TOKEN');
     return $http.get(Config.api + '/check' + '?token=' + token)
       .then(function(result) {
-        if (result.data.success === false) {
+        if (result.data.success == false) {
           $location.path('/app/landing');
         }
         return auth = result.data.success;
@@ -33,6 +33,7 @@ angular.module('moocmates.services', [])
       password: password
     }).then(function(result) {
       $location.path('/app/chat/dash');
+
       localStorage.setItem('AUTH_TOKEN', result.data.token);
       localStorage.setItem('username', username);
     });
